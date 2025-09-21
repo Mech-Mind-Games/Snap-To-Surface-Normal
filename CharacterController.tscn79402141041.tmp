@@ -1,0 +1,66 @@
+[gd_scene load_steps=10 format=3 uid="uid://d2fh4ve8vpp1p"]
+
+[ext_resource type="Script" uid="uid://wwulg1luux6" path="res://character_body_3d.gd" id="1_wubm4"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_wubm4"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_wubm4"]
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_wubm4"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_v6m8r"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bouwt"]
+albedo_color = Color(0.34778348, 0.34778348, 0.34778348, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_wubm4"]
+size = Vector3(4, 3, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_v6m8r"]
+size = Vector3(4, 3, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_bouwt"]
+size = Vector3(4.5, 3.5, 1.5)
+
+[node name="Main" type="Node3D"]
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+script = ExtResource("1_wubm4")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D"]
+mesh = SubResource("CapsuleMesh_wubm4")
+
+[node name="Camera3D" type="Camera3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.110776, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
+shape = SubResource("CapsuleShape3D_wubm4")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.6603556, 0.750953, 0, -0.750953, 0.6603556, 0, 5.893637, 0)
+
+[node name="Floor" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+shape = SubResource("WorldBoundaryShape3D_wubm4")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
+transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 0, 0, 0)
+mesh = SubResource("PlaneMesh_v6m8r")
+surface_material_override/0 = SubResource("StandardMaterial3D_bouwt")
+
+[node name="Prism" type="StaticBody3D" parent="." groups=["prisms"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.521996, -6)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Prism"]
+mesh = SubResource("BoxMesh_wubm4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Prism"]
+shape = SubResource("BoxShape3D_v6m8r")
+
+[node name="Area3D" type="Area3D" parent="Prism"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Prism/Area3D"]
+shape = SubResource("BoxShape3D_bouwt")
